@@ -86,12 +86,23 @@ int IntakeControlTask() {
                         frontRoller(100);
                         path2.push(path1.front());
                         path1.pop();
+                        B2 = Ball(B3);
                         task::sleep(200);
                     } else {
                         rearRoller(0);
                     }
                 } else {
+                    if (path2.empty()) {
+                        if (path1.size() < 2) {
+                            frontRoller(0);
+                            if (!Controller1.ButtonR1.pressing()) rearRoller(0);
+                        } else {
+                            frontRoller(100);
+                            rearRoller(-100);
+                        }
+                    } else {
 
+                    }
                 }
             } else {
                 frontRoller(100);
