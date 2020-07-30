@@ -3,7 +3,7 @@
  * @func: move
  * @para: leftSpeed: speed of left side of the chassis, its range is [-100, 100].
  * @para: rightSpeed: speed of right side of the chassis, its range is [-100, 100].
- * @author: ZilongWang ,wangzilong@bjtu.edu.cn
+ * @author: ZilongWang, wangzilong@bjtu.edu.cn
  *
  * Using voltage to control chassis.
  */
@@ -18,19 +18,36 @@ void move(float leftSpeed, float rightSpeed){
  * @func: intake
  * @para: leftSpeed: speed of left side of the intake, its range is [-100, 100].
  * @para: rightSpeed: speed of right side of the intake, its range is [-100, 100].
- * @author: ZilongWang ,wangzilong@bjtu.edu.cn
+ * @author: ZilongWang, wangzilong@bjtu.edu.cn
  *
  * Using percent to control intake.
  */
- void intake(float leftSpeed, float rightSpeed) {
-     LeftIntake.spin(forward, leftSpeed, pct);
-     RightIntake.spin(forward, rightSpeed, pct);
- }
+void intake(float speed) {
+    LeftIntake.spin(forward, speed, pct);
+    RightIntake.spin(forward, speed, pct);
+}
 
- void rearRoller(float speed) {
-     RearRoller.spin(forward, speed, pct);
- }
+/*
+ * @func: rearRoller
+ * @para: speed: speed of rear roller, its range is [-100, 100].
+ * @author: ZilongWang, wangzilong@bjtu.edu.cn
+ *
+ * Using percent to control rear roller.
+ */
+void rearRoller(float speed) {
+    if(speed != 0)
+        RearRoller.spin(forward, speed, pct);
+    else
+        RearRoller.stop(hold);
+}
 
- void frontRoller(float speed) {
-      FrontRoller.spin(forward, speed, pct);
- }
+/*
+ * @func: frontRoller
+ * @para: speed: speed of front roller, its range is [-100, 100].
+ * @author: ZilongWang, wangzilong@bjtu.edu.cn
+ *
+ * Using percent to control front roller.
+ */
+void frontRoller(float speed) {
+    FrontRoller.spin(forward, speed, pct);
+}
