@@ -1,3 +1,6 @@
+// Author: Zilong Wang
+// Email : wangzilong@bjtu.edu.cn
+// Date  : 2020-07-30
 #include <queue>
 #include "robot-config.h"
 #include "MotorControl.h"
@@ -8,27 +11,28 @@
 
 extern std::string Alliance;
 
+//Declare a class called Ball.
 class Ball {
 private:
     bool isExist = false;
     std::string ballType;
 public:
-    ~Ball();
-    Ball(bool isExist, std::string ballType) {
+    ~Ball(); // Destructor of class Ball
+    Ball(bool isExist, std::string ballType) { // Constructor of class Ball
         isExist = false;
         ballType = "void";
     }
-    Ball(Ball *b) {
+    Ball(Ball *b) { // Constructor of class Ball with parameter whose type is class Ball
         this->isExist = b->getExist();
         this->ballType = b->getBallType();
     }
-    bool getExist() {
+    bool getExist() { // Get existance
         return isExist;
     }
-    std::string getBallType() {
+    std::string getBallType() { // Get the color of a ball ("blue" "red" "void")
         return ballType;
     }
-    void changeBallStatus(bool isExist, std::string ballType) {
+    void changeBallStatus(bool isExist, std::string ballType) { // Change info of a ball
         this->isExist = isExist;
         this->ballType = ballType;
     }
@@ -36,8 +40,10 @@ public:
 
 int IntakeControlTask() {
     Ball B1 = Ball(false, "void"), B2 = Ball(false, "void"), B3 = Ball(false, "void"), B4 = Ball(false, "void");
+    // Declaration of two ball paths using STL queue.
     std::queue<Ball> path1;
     std::queue<Ball> path2;
+    // Declaration of the coordinate of the ball
     int blueX1, blueY1, redX1, redY1;
     int lastBlueX1, lastBlueY1, lastRedX1, lastRedY1;
     bool flagBlue = false, flagRed = false;
