@@ -1,8 +1,10 @@
 #include <queue>
 #include "robot-config.h"
 #include "MotorControl.h"
+#include <cmath>
 
 #define HAVE_BALL 50
+#define DELTA_X 100
 
 extern std::string Alliance;
 
@@ -56,7 +58,7 @@ int IntakeControlTask() {
                 blueX1 = Vision1.largestObject.centerX;
                 blueY1 = Vision1.largestObject.centerY;
                 B4.changeBallStatus(true, "blue");
-                if (!flagBlue) path1.push(B4);
+                if (!flagBlue || std::abs(blueX1 - lastBlueX1) > DELTA_X) path1.push(B4);
                 flagBlue = true;
             } else {
                 B3 = Ball(B4);
@@ -71,7 +73,7 @@ int IntakeControlTask() {
                 redX1 = Vision1.largestObject.centerX;
                 redY1 = Vision1.largestObject.centerY;
                 B4.changeBallStatus(true, "red");
-                if (!flagRed) path1.push(B4);
+                if (!flagRed || std::abs(lastRedX1 - redX1) > DELTA_X) path1.push(B4);
                 flagRed = true;
             } else {
                 B3 = Ball(B4);
@@ -99,9 +101,14 @@ int IntakeControlTask() {
                         } else {
                             frontRoller(100);
                             rearRoller(-100);
+                            path1.pop();
+                            task::sleep(300);
                         }
                     } else {
-
+                        frontRoller(100);
+                        rearRoller(-1);
+                        path1.pop();
+                        task::sleep(300);
                     }
                 }
             } else {
@@ -115,6 +122,14 @@ int IntakeControlTask() {
             frontRoller(0);
             if (!Controller1.ButtonR1.pressing()) rearRoller(0);
             intake(0);
+        }
+
+        if (Controller1.ButtonR1.pressing()) {
+            rearRoller(100);
+            if (Line2.value(percent) < HAVE_BALL) {
+                task::sleep(300);
+                path2.pop();
+            }
         }
         task::sleep(30);
     }
