@@ -1,13 +1,10 @@
 using namespace vex;
 
-using signature = vision::signature;
-using code = vision::code;
-
 extern brain Brain;
 
+using signature = vision::signature;
 
 // VEXcode devices
-extern controller Controller1;
 extern motor LeftMotor1;
 extern motor LeftMotor2;
 extern motor RightMotor1;
@@ -16,15 +13,17 @@ extern motor LeftIntake;
 extern motor RightIntake;
 extern motor FrontRoller;
 extern motor RearRoller;
-extern signature Vision5__BLUEBOX;
-extern signature Vision5__GREENBOX;
-extern signature Vision5__REDBOX;;
-extern signature Vision5__SIG_4;
-extern signature Vision5__SIG_5;
-extern signature Vision5__SIG_6;
-extern signature Vision5__SIG_7;
-extern vision Vision;
-
+extern signature Vision1__BLUEBALL;
+extern signature Vision1__REDBALL;
+extern signature Vision1__SIG_3;
+extern signature Vision1__SIG_4;
+extern signature Vision1__SIG_5;
+extern signature Vision1__SIG_6;
+extern signature Vision1__SIG_7;
+extern vision Vision1;
+extern controller Controller1;
+extern line Line1;
+extern line Line2;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
